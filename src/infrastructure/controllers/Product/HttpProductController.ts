@@ -2,15 +2,13 @@ import { ProductService } from "../../../core/services/ProductService/ProductSer
 import { Request, Response, NextFunction } from "express";
 import { ProductRepositoryImpl } from "../../db/repository/ProductRepositoryImpl";
 import { Product } from "../../../core/entities/Product/Product";
+import { ProductRepository } from "../../../core/repositories/ProductRepository/ProductRepository";
+
+// Dependency Injection
+const productRepositoryImpl = new ProductRepositoryImpl();
+const productService = new ProductService(productRepositoryImpl);
 
 export class HttpProductController {
-    // constructor(readonly productService: ProductService) {}
-
-    // // Dependency Injection
-    productRepositoryImpl = new ProductRepositoryImpl();
-
-    productService = new ProductService(this.productRepositoryImpl);
-
     // // @path('/products/create')
     // async createNewProduct(req: Request, res: Response) {
     //     try {
@@ -22,28 +20,17 @@ export class HttpProductController {
     //     }
     // }
 
-    // // @path('/products')
+    // @path('/products')
     async getAll(req: Request, res: Response) {
-        console.log("+++httpProductController1");
-        // console.log(await this.productService);
         try {
-            console.log("+++httpProductController2");
-
-            // const products: Product[] = await this.productService.getAll();
-            await this.productService.getAll();
-
-            console.log("+++httpProductController3");
-            res.json("xxxx");
-            console.log("+++productService4");
+            const products: Product[] = await productService.getAll();
+            res.json(products);
         } catch (e: any) {
             res.status(400).json(
                 "The products were not collected... " + e.message
             );
         }
     }
-    // getAll(req: Request, res: Response) {
-    //     res.send("xxxxx");
-    // }
 }
 
 // class SQLUserRepository implements UserRepository{

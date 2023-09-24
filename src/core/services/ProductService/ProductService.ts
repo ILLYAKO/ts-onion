@@ -6,9 +6,7 @@ export class ProductService {
 
     async getAll() {
         // business logic
-        console.log("ProductService1");
-        // return this.productRepository.getAll();
-        return "Hello from ProductService";
+        return this.productRepository.getAll();
     }
 
     async getById(id: string) {
@@ -21,9 +19,3 @@ export class ProductService {
         const newProduct = this.productRepository.add(dto);
     }
 }
-
-// // Example
-// const productService = new ProductService(new SQLRepo);
-// const productService = new ProductService(new MongoRepo);
-// C:\_projects\js-onion\src\core\services\ProductService\ProductService.ts
-// DI Container
