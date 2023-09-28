@@ -16,6 +16,6 @@ export class ProductService {
 
     async createNewProduct(dto: AddProductDto) {
         // business logic
-        const newProduct = this.productRepository.add(dto);
+        const newProduct = this.productRepository.create(dto);
     }
 }

@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import {router} from "./infrastructure/routers";
 
 const app: Express = express();
+import dbInit from "./infrastructure/db/init";
+dbInit()
 
 app.use(express.json());
 

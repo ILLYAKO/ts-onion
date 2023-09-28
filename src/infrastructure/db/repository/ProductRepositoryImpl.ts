@@ -1,6 +1,6 @@
 // Data Access Layer (DAL)
 // import { Product } from "../../../core/entities/Product/Product";
-// import { ProductRepository } from "../../../core/repositories/ProductRepository/ProductRepository";
+import { ProductRepository } from "../../../core/repositories/ProductRepository/ProductRepository";
 // import { AddProductDto } from "../../../core/repositories/ProductRepository/dto/addProductDto";
 // import { UpdateProductDto } from "../../../core/repositories/ProductRepository/dto/updateProductDto";
 // import { ProductMapper } from "../mappers/ProductMapper";
@@ -54,55 +54,84 @@
 import { Op } from "sequelize";
 import Ingredient from "../models/ProductModel";
 import { GetAllIngredientsFilters } from "./types";
-import { IngredientInput, IngredientOutput } from "../models/ProductModel";
+import { IProductInput, IProductOutput } from "../models/ProductModel";
+import { Product } from "../../../core/entities/Product/Product";
+import { AddProductDto } from "../../../core/repositories/ProductRepository/dto/addProductDto";
+import { UpdateProductDto } from "../../../core/repositories/ProductRepository/dto/updateProductDto";
+import ProductModel from "../models/ProductModel";
 
-export const create = async (
-    payload: IngredientInput
-): Promise<IngredientOutput> => {
-    const ingredient = await Ingredient.create(payload);
-    return ingredient;
-};
 
-export const update = async (
-    id: number,
-    payload: Partial<IngredientInput>
-): Promise<IngredientOutput> => {
-    const ingredient = await Ingredient.findByPk(id);
-    if (!ingredient) {
-        // @todo throw custom error
-        throw new Error("not found");
+export class ProductRepositoryImpl implements ProductRepository {
+    create(dto: AddProductDto): Product {
+        throw new Error("Method not implemented.");
     }
-    const updatedIngredient = await (ingredient as Ingredient).update(payload);
-    return updatedIngredient;
-};
-
-export const getById = async (id: number): Promise<IngredientOutput> => {
-    const ingredient = await Ingredient.findByPk(id);
-    if (!ingredient) {
-        // @todo throw custom error
-        throw new Error("not found");
+    getById(id: string): Product {
+        throw new Error("Method not implemented.");
     }
-    return ingredient;
-};
+    getByName(name: string): Product {
+        throw new Error("Method not implemented.");
+    }
+    getAll(): any {
+        // return ProductModel.findAll()
+        const getAll = async (): Promise<any> => {
+            return Ingredient.findAll();
+        };
+    }
+    remove(id: string) {
+        throw new Error("Method not implemented.");
+    }
+    update(dto: UpdateProductDto): Product {
+        throw new Error("Method not implemented.");
+    }
+}
 
-export const deleteById = async (id: number): Promise<boolean> => {
-    const deletedIngredientCount = await Ingredient.destroy({
-        where: { id },
-    });
-    return !!deletedIngredientCount;
-};
+// export const create = async (
+//     payload: IngredientInput
+// ): Promise<IngredientOutput> => {
+//     const ingredient = await Ingredient.create(payload);
+//     return ingredient;
+// };
 
-export const getAll = async (
-    filters?: GetAllIngredientsFilters
-): Promise<IngredientOutput[]> => {
-    return Ingredient.findAll({
-        where: {
-            ...(filters?.isDeleted && { deletedAt: { [Op.not]: null } }),
-        },
-        ...((filters?.isDeleted || filters?.includeDeleted) && {
-            paranoid: true,
-        }),
-    });
-};
+// export const update = async (
+//     id: number,
+//     payload: Partial<IngredientInput>
+// ): Promise<IngredientOutput> => {
+//     const ingredient = await Ingredient.findByPk(id);
+//     if (!ingredient) {
+//         // @todo throw custom error
+//         throw new Error("not found");
+//     }
+//     const updatedIngredient = await (ingredient as Ingredient).update(payload);
+//     return updatedIngredient;
+// };
+
+// export const getById = async (id: number): Promise<IngredientOutput> => {
+//     const ingredient = await Ingredient.findByPk(id);
+//     if (!ingredient) {
+//         // @todo throw custom error
+//         throw new Error("not found");
+//     }
+//     return ingredient;
+// };
+
+// export const deleteById = async (id: number): Promise<boolean> => {
+//     const deletedIngredientCount = await Ingredient.destroy({
+//         where: { id },
+//     });
+//     return !!deletedIngredientCount;
+// };
+
+// export const getAll = async (
+//     filters?: GetAllIngredientsFilters
+// ): Promise<IngredientOutput[]> => {
+//     return Ingredient.findAll({
+//         where: {
+//             ...(filters?.isDeleted && { deletedAt: { [Op.not]: null } }),
+//         },
+//         ...((filters?.isDeleted || filters?.includeDeleted) && {
+//             paranoid: true,
+//         }),
+//     });
+// };
 
 //findAllExist

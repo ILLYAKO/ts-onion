@@ -3,7 +3,7 @@ import { UpdateProductDto } from "./dto/updateProductDto";
 import { Product } from "../../entities/Product/Product";
 
 export interface ProductRepository {
-    add(dto: AddProductDto): Product;
+    create(dto: AddProductDto): Product;
     getById(id: string): Product;
     getByName(name: string): Product;
     getAll(): Array<Product>;

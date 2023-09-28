@@ -74,5 +74,4 @@ ProductModel.init(
         paranoid: true,
     }
 );
-
 export default ProductModel;
