@@ -26,7 +26,7 @@ import { Dialect, Sequelize } from 'sequelize'
 // TODO Set up process.env variables!!!!!!!!!!!!!!!
 // const dbName = process.env.DB_NAME as string
 const dbName = "onion_db";
-// const dbUser = process.env.DB_USER as string
+// const dbUser = process.env.DB_USER as stringgit
 const dbUser = "root";
 // const dbHost = process.env.DB_HOST
 const dbHost = "localhost";
